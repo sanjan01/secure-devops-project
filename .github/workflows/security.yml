@@ -1,7 +1,23 @@
-secure-devops-project/
- ├── app.js
- ├── package.json
- ├── Dockerfile
- ├── .github/
-      └── workflows/
-           └── security.yml   ✅ (this is new file)
+name: Secure CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t secure-app .
+
+      - name: Scan with Trivy
+        uses: aquasecurity/trivy-action@0.19.0
+        with:
+          image-ref: secure-app
+          severity: HIGH,CRITICAL
+          exit-code: 1

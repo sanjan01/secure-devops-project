@@ -1,0 +1,7 @@
+secure-devops-project/
+ ├── app.js
+ ├── package.json
+ ├── Dockerfile
+ ├── .github/
+      └── workflows/
+           └── security.yml   ✅ (this is new file)
